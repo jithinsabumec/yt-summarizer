@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <title>YouTube Summarizer</title>
+  <style>
+    body {
+      /* font-family: Roboto; */
+      width: 320px;
+      padding: 16px;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    h1 {
+      font-size: 18px;
+      margin: 0 0 8px 0;
+      color: #cc0000;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo img {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    /* input, select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    } */
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: #aaa;
+    }
+    
+    button {
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #aa0000;
+    }
+    
+    .status {
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: none;
+    }
+    
+    .success {
+      background-color: #e6f4ea;
+      color: #137333;
+      display: block;
+    }
+    
+    .error {
+      background-color: #fce8e6;
+      color: #c5221f;
+      display: block;
+    }
+    
+    .footer {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+    }
+    
+    .instructions {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #555;
+      background-color: #eee;
+      padding: 8px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="icons/icon48.png" alt="Logo">
+      <h1>YouTube Video Summarizer</h1>
+    </div>
+    
+    <div class="form-group">
+      <label for="api-key">OpenRouter API Key</label>
+      <input type="password" id="api-key" placeholder="Enter your API key">
+    </div>
+    
+    <div class="form-group">
+      <label for="model">AI Model</label>
+      <select id="model">
+        <option value="deepseek/deepseek-coder">DeepSeek Coder</option>
+        <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
+        <option value="anthropic/claude-3-sonnet">Claude 3 Sonnet</option>
+        <option value="google/gemini-pro">Gemini Pro</option>
+      </select>
+    </div>
+    
+    <button id="save-settings">Save Settings</button>
+    
+    <div id="status" class="status"></div>
+    
+    <div class="instructions">
+      <strong>How to use:</strong>
+      <ol>
+        <li>Enter your OpenRouter API key</li>
+        <li>Select your preferred AI model</li>
+        <li>Go to any YouTube video</li>
+        <li>Click the "Generate Summary" button next to like/dislike</li>
+      </ol>
+    </div>
+    
+    <div class="footer">
+      Made with ❤️ for YouTube viewers
+    </div>
+  </div>
+</body>
+</html>

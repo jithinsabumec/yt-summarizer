@@ -1,0 +1,203 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    background-color: #181818; /* Dark background */
+    color: #FFFFFF; /* Light text color */
+    
+}
+
+.video-summary-section {
+    font-size: 14px;
+    background-color: #282828; /* Darker background for summary section */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding for the summary section */
+    margin-top: 16px; /* Space above the summary section */
+    font-family: Space Grotesk;
+    animation: fadeIn 0.3s ease-in-out;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    overflow: hidden; /* Ensure shimmer effect stays within bounds */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.summary-button {
+    background: rgba(255, 255, 255, 0.1); /* Dark mode background */
+    color: #FFFFFF; /* Text color for dark mode */
+    font-size: 14px;
+    height: 36px; /* Height of the button */
+    font-family: "Space Grotesk", "Roboto", "Arial", sans-serif; /* Set font to Space Grotesk */
+    margin-left: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap : 6px;
+    padding: 6px 12px; /* Adjust padding for better fit */
+    border-radius: 50px; /* Make the button pill-shaped */
+    border: none; /* Remove the border */
+}
+
+.summary-button:hover {
+    background: rgba(255, 255, 255, 0.2); /* Hover effect */
+}
+
+.summary-button:disabled {
+    opacity: 0.7;
+    cursor: default !important;
+}
+
+.video-summary-section h2 {
+    color: #FFFFFF; /* Light text for dark mode */
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    font-family: Space Mono;
+}
+
+.video-summary-section div {
+    color: #FFFFFF; /* Light text for dark mode */
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+/* Modify shimmer animation to go from left to right */
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0; /* Start from the right */
+    }
+    100% {
+        background-position: -200% 0; /* End at the left */
+    }
+}
+
+/* Shimmer line with animation effect */
+.shimmer-line {
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        #333 0%,
+        #444 50%,
+        #333 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+    margin-bottom: 12px;
+}
+
+.shimmer-line:nth-child(1) {
+    width: 95%;
+}
+
+.shimmer-line:nth-child(2) {
+    width: 85%;
+}
+
+.shimmer-line:nth-child(3) {
+    width: 75%;
+}
+
+/* Remove the now-unused shimmer-text class */
+.shimmer-text {
+    display: none;
+}
+
+/* Add these styles to styles.css */
+.viewer-thoughts {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.viewer-thoughts h3 {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-family: Space Mono;
+}
+
+/* Add these styles for the new summary section design */
+.summary-heading {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+}
+
+.summary-icon {
+    margin-right: 8px;
+    opacity: 0.8;
+}
+
+.viewer-thoughts-heading {
+    margin-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+}
+
+.sentiment-pill {
+    display: inline-block;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 8px 0 16px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sentiment-pill.positive {
+    background-color: #28a745;
+}
+
+.sentiment-pill.slightly.positive {
+    background-color: #5cb85c;
+}
+
+.sentiment-pill.neutral {
+    background-color: #6c757d;
+}
+
+.sentiment-pill.slightly.negative {
+    background-color: #f0ad4e;
+}
+
+.sentiment-pill.negative {
+    background-color: #dc3545;
+}
+
+.summary-content {
+    color: #FFFFFF;
+    line-height: 1.5;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+/* .summary-content p {
+    margin-bottom: 12px;
+} */
+
+.gradient-heading {
+    font-family: 'Space Mono', monospace;
+    background: linear-gradient(180deg, #FFF 0%, #999 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Keep this for the gradient effect */
+    font-weight: 700;
+    padding-left: 8px;
+    /* Add a fallback color for visibility */
+}
