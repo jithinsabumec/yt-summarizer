@@ -381,7 +381,7 @@
             const line = lines[i].trim();
             
             // Extract sentiment if line matches the pattern
-            if (line.toLowerCase().startsWith('sentiment:')) {
+            if (line.toLowerCase().includes('sentiment:') || line.toLowerCase().includes('overall sentiment:')) {
                 sentiment = line.split(':')[1].trim().toLowerCase();
                 continue;
             }
@@ -419,22 +419,22 @@
             document.head.appendChild(style);
         }
         
-        // Get sentiment color
+        // Get sentiment color and ensure sentiment has a valid value
+        sentiment = sentiment || 'neutral';
         const sentimentColor = getSentimentColor(sentiment);
         
         // Build final HTML with sentiment inside the pill
         summarySection.innerHTML = `
             <h2 class="summary-heading">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 0V0C7.40491 3.68528 10.3147 6.59509 14 7V7V7C10.3147 7.40491 7.40491 10.3147 7 14V14V14C6.59509 10.3147 3.68528 7.40491 0 7V7V7C3.68528 6.59509 6.59509 3.68528 7 0V0Z" fill="url(#paint0_linear_325_225)"/>
-<defs>
-<linearGradient id="paint0_linear_325_225" x1="7" y1="0" x2="7" y2="14" gradientUnits="userSpaceOnUse">
-<stop stop-color="#E0E0E0"/>
-<stop offset="1" stop-color="#B3B3B3"/>
-</linearGradient>
-</defs>
-</svg>
-
+                    <path d="M7 0V0C7.40491 3.68528 10.3147 6.59509 14 7V7V7C10.3147 7.40491 7.40491 10.3147 7 14V14V14C6.59509 10.3147 3.68528 7.40491 0 7V7V7C3.68528 6.59509 6.59509 3.68528 7 0V0Z" fill="url(#paint0_linear_325_225)"/>
+                    <defs>
+                        <linearGradient id="paint0_linear_325_225" x1="7" y1="0" x2="7" y2="14" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#E0E0E0"/>
+                            <stop offset="1" stop-color="#B3B3B3"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
                 <span class="gradient-heading">VIDEO SUMMARY</span>
             </h2>
             <div class="summary-content">${videoSummaryContent}</div>
@@ -442,38 +442,35 @@
             <h2 class="summary-heading viewer-thoughts-heading">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16 2H8C4.691 2 2 4.691 2 8V21C2 21.388 2.224 21.741 2.572 21.907C2.714 21.975 2.869 22.009 3.023 22.009C3.244 22.009 3.463 21.926 3.633 21.766L7.383 18.323C7.574 18.145 7.831 18.049 8.097 18.049H16C19.309 18.049 22 15.358 22 12.049V8C22 4.691 19.309 2 16 2Z" fill="#FFFFFF"/>
-                    <path d="M15.5 8.5H7.5C6.119 8.5 5 9.619 5 11V19C5 19.388 5.224 19.741 5.572 19.907C5.714 19.975 5.869 20.009 6.023 20.009C6.244 20.009 6.463 19.926 6.633 19.766L9.383 17.323C9.574 17.145 9.831 17.049 10.097 17.049H15.5C16.881 17.049 18 15.93 18 14.549V11C18 9.619 16.881 8.5 15.5 8.5Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+                    <path d="M15.5 8.5H7.5C6.119 8.5 5 9.619 5 11V19C5 19.388 5.224 19.741 5.572 19.907C2.714 19.975 5.869 20.009 6.023 20.009C6.244 20.009 6.463 19.926 6.633 19.766L9.383 17.323C9.574 17.145 9.831 17.049 10.097 17.049H15.5C16.881 17.049 18 15.93 18 14.549V11C18 9.619 16.881 8.5 15.5 8.5Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
                 </svg>
                 <span class="gradient-heading">WHAT VIEWERS THINK</span>
             </h2>
-            <div class="sentiment-pill" style="background-color: ${sentimentColor}">
-                ${sentiment.toUpperCase()}
-            </div>
+            ${sentiment ? `<div class="sentiment-pill" style="background-color: ${sentimentColor}">${sentiment.toUpperCase()}</div>` : ''}
             <div class="summary-content">${viewerThoughtsContent}</div>
         `;
     }
-  
+    
     // Get sentiment color based on sentiment value
     function getSentimentColor(sentiment) {
-        // Normalize the sentiment string for easier comparison
-        const normalizedSentiment = sentiment.toString().toLowerCase().trim();
-        
-        // Handle each possible sentiment value
-        if (normalizedSentiment === 'positive') {
-            return '#28a745'; // Bright green for positive
-        } else if (normalizedSentiment === 'slightly positive') {
-            return '#5cb85c'; // Lighter green for slightly positive
-        } else if (normalizedSentiment === 'neutral') {
-            return '#6c757d'; // Gray for neutral
-        } else if (normalizedSentiment === 'slightly negative') {
-            return '#f0ad4e'; // Orange/amber for slightly negative
-        } else if (normalizedSentiment === 'negative') {
-            return '#dc3545'; // Red for negative
-        } else {
-            // Default case if sentiment doesn't match expected values
-            console.warn('Unknown sentiment value:', sentiment);
+        // Handle undefined, null or invalid sentiment values
+        if (!sentiment || typeof sentiment !== 'string') {
             return '#6c757d'; // Default to neutral gray
         }
+
+        // Normalize the sentiment string for easier comparison
+        const normalizedSentiment = sentiment.toLowerCase().trim();
+        
+        // Define sentiment colors
+        const colors = {
+            'positive': '#28a745',
+            'slightly positive': '#5cb85c',
+            'neutral': '#6c757d',
+            'slightly negative': '#f0ad4e',
+            'negative': '#dc3545'
+        };
+        
+        return colors[normalizedSentiment] || colors.neutral;
     }
   
     function formatSummary(summary) {

@@ -1,6 +1,6 @@
 // background.js
 // IMPORTANT: Replace this with your actual OpenRouter API key before publishing
-const OPENROUTER_API_KEY = "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"; 
+const OPENROUTER_API_KEY = "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"; 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL = "qwen/qwq-32b:free"; // You can change this to your preferred model
 
@@ -224,10 +224,20 @@ function displaySummary(summaryText) {
 }
 
 function getSentimentColor(sentiment) {
+  // Handle undefined, null or invalid sentiment values
+  if (!sentiment || typeof sentiment !== 'string') {
+    console.warn('Invalid sentiment value:', sentiment);
+    return '#6c757d'; // Default to neutral gray
+  }
+
   const colors = {
-    'positive': '#28a745',  // green
-    'neutral': '#6c757d',   // gray
-    'negative': '#dc3545'   // red
+    'positive': '#28a745',        // green
+    'slightly positive': '#75c687', // light green
+    'neutral': '#6c757d',         // gray
+    'slightly negative': '#de7885', // light red
+    'negative': '#dc3545'         // red
   };
-  return colors[sentiment.toLowerCase()] || colors.neutral;
+  
+  const normalizedSentiment = sentiment.toLowerCase().trim();
+  return colors[normalizedSentiment] || colors.neutral;
 }
