@@ -1,6 +1,6 @@
 // background.js
 // IMPORTANT: Replace this with your actual OpenRouter API key before publishing
-const OPENROUTER_API_KEY = "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"; 
+const OPENROUTER_API_KEY = "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"; 
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL = "qwen/qwq-32b:free"; // You can change this to your preferred model
 
